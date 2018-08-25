@@ -4,10 +4,10 @@ class SideNav extends Component {
   render() {
     return (
       <div className="SideNav">
-        <h1>qdwasdasdasd</h1>
+        <h1>招聘职位</h1>
       </div>
     );
   }
 }
 
-export default App;
+export default SideNav;
