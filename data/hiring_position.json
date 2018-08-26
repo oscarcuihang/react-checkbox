@@ -1,0 +1,43 @@
+{
+  "departments": [{
+      "department_name": "工程研发部门",
+      "department_positions": [{
+          "position_name": "Mac 工程开发师",
+          "position_count": 9
+        },
+        {
+          "position_name": "Mac 工程开发师",
+          "position_count": 9
+        },
+        {
+          "position_name": "Android 远程控制工程师",
+          "position_count": 61
+        },
+        {
+          "position_name": "Web 前段工程师",
+          "position_count": 31
+        },
+        {
+          "position_name": "Android 多媒体软件开发工程师",
+          "position_count": 2
+        }
+      ]
+    },
+    {
+      "department_name": "产品设计部门",
+      "department_positions": [{
+          "position_name": "网页设计师",
+          "position_count": 47
+        },
+        {
+          "position_name": "ID/工业设计师",
+          "position_count": 39
+        },
+        {
+          "position_name": "Android 平面设计师",
+          "position_count": 8
+        }
+      ]
+    }
+  ]
+}
