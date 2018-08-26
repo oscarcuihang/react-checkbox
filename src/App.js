@@ -9,7 +9,7 @@ class App extends Component {
 
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={4} className='App-navbar-color'>
+          <Grid item xs={12} className='App-navbar-color'>
             <SideNav />
           </Grid>
         </Grid>
