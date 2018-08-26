@@ -1,13 +1,14 @@
 {
   "departments": [{
       "department_name": "工程研发部门",
-      "department_positions": [{
+      "department_positions": [
+        {
           "position_name": "Mac 工程开发师",
           "position_count": 9
         },
         {
           "position_name": "iOS App 测试工程师",
-          "position_count": 9
+          "position_count": 17
         },
         {
           "position_name": "Android 远程控制工程师",
@@ -25,16 +26,21 @@
     },
     {
       "department_name": "产品设计部门",
-      "department_positions": [{
+      "department_positions": [
+        {
           "position_name": "网页设计师",
           "position_count": 47
         },
         {
-          "position_name": "ID/工业设计师",
+          "position_name": "ID / 工业设计师",
           "position_count": 39
         },
         {
-          "position_name": "Android 平面设计师",
+          "position_name": "视觉设计师 / GUI 界面设计师",
+          "position_count": 42
+        },
+        {
+          "position_name": "平面设计师",
           "position_count": 8
         }
       ]

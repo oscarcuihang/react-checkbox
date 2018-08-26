@@ -1,5 +1,7 @@
 .App-navbar-color {
   background-color: #547181;
-  height: 100vh;
+  height: 100%;
+    display: inline;
+
 }
 
