@@ -1,6 +1,6 @@
-# Rails React Chatroom
+# React Checkbox
   * [Project Board](https://github.com/oscarcuihang/react-checkbox/projects/1)
-
+  * [Demo](https://oscarcuihang.github.io/react-checkbox/)
 ## Development
 ### Install dependencies
 * Node Version `>=8`
