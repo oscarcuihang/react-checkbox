@@ -5,10 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import CommentIcon from '@material-ui/icons/Comment';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import './Department.css';
 
 function buildPositions(positions) {
   const positionChecks=[];
@@ -51,6 +51,15 @@ class Department extends Component {
   state = {
     departmentChecked: false,
     positionsChecked: null,
+    open: true,
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
 
   componentWillMount() {
@@ -58,15 +67,18 @@ class Department extends Component {
     this.setState({positionsChecked: positionsChecked});
   }
 
-  componentDidUpdate() {
-    console.log(this.state.departmentChecked);
-    console.log(this.state.positionsChecked);
-  }
-
   departmentCount() {
     let count = 0;
     this.props.department.department_positions.forEach(position => count += position.position_count)
     return count;
+  }
+
+  handleClearAll() {
+    const newCheckedPositions = flipAllPositionsChecked(this.state.positionsChecked, false)
+    this.setState({ 
+      departmentChecked: false,
+      positionsChecked: newCheckedPositions,
+    });
   }
 
   handleDepartmentToggle = departmentChecked => event => {
@@ -80,7 +92,8 @@ class Department extends Component {
 
     this.setState({ 
       departmentChecked: event.target.checked,
-      positionsChecked: newCheckedPositions
+      positionsChecked: newCheckedPositions,
+      open: true,
     });
   }
 
@@ -89,33 +102,32 @@ class Department extends Component {
     positionsChecked[positionIndex].checked = event.target.checked;
     this.setState({positionsChecked: positionsChecked});
   }
-
+  handleClick = () => {
+    this.setState(state => ({ open: !state.open }));
+  }
   render() {
     return (
-      <div className="Department">
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.departmentChecked}
-              icon={<CheckBoxOutlineBlankIcon />}
-              checkedIcon={<CheckBoxIcon />}
-              onChange={this.handleDepartmentToggle(this.props.department.department_name)}
-            />
-          }
-          label={this.props.department.department_name}
-          onChange={this.handleDepartmentToggle()}
-        />
-        {this.departmentCount()}
-
+      <div>
         <List>
-          {this.state.positionsChecked.map(position => (
-            <ListItem key={position.positionName} dense button onChange={this.handlePositionToggle(position.index)}>
-              <Checkbox value={position.positionName} checked={position.checked}/>
-              <ListItemText primary={position.positionName} />
-              <ListItemSecondaryAction>{position.positionCount}</ListItemSecondaryAction>
-            </ListItem>
-          ))}
+          <ListItem key={this.props.department.department_name} dense button onClick={this.handleClick} onChange={this.handleDepartmentToggle(this.props.department.department_name)}>
+            <Checkbox value={this.props.department.department_name} checked={this.state.departmentChecked} />
+            <ListItemText primary={this.props.department.department_name} />
+            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            <ListItemSecondaryAction>{this.departmentCount()}</ListItemSecondaryAction>
+          </ListItem>
         </List>
+
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List style={{paddingLeft: "35px"}} className="Position-list">
+            {this.state.positionsChecked.map(position => (
+              <ListItem key={position.positionName} dense button onChange={this.handlePositionToggle(position.index)}>
+                <Checkbox value={position.positionName} checked={position.checked} />
+                <ListItemText primary={position.positionName} />
+                <ListItemSecondaryAction>{position.positionCount}</ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
       </div>
     );
   }

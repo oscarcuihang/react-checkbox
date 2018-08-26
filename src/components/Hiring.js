@@ -4,14 +4,10 @@ import Department from './Department';
 import './Hiring.css'
 
 class Hiring extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hiringData: null,
-    };
-    this.renderHiringPositions = this.renderHiringPositions.bind(this);
+  state = {
+    hiringData: null,
+    clearAll: false,
   }
-
   componentDidMount() {
     const url = "https://raw.githubusercontent.com/oscarcuihang/react-checkbox/master/data/hiring_position.json";
     fetch(url)
@@ -23,18 +19,26 @@ class Hiring extends Component {
     if (this.state.hiringData === null) {
       return null;
     }
-    // return <Department />
-    return this.state.hiringData.departments.map(department => 
-      <Department key={department.department_name} department={department}/>
+    return this.state.hiringData.departments.map((department, index) => 
+      <Department
+        key={department.department_name}
+        department={department}
+        onRef={ref => (this[`department${index}`] = ref)}
+      />
     );
-    // return this.state.hiringData.departments.map(department => console.log(department));
+  }
+
+  handleClearAll = value => () => {
+    this.state.hiringData.departments.forEach((_, index) => 
+      this[`department${index}`].handleClearAll()
+    );
   }
 
   render() {
     return (
       <div className="Hiring">
-        <p>招聘职位<Button><span className="Clear-botton">清空</span></Button></p>
-        {this.renderHiringPositions()}
+        <p>招聘职位<span className="Clear-botton"><Button onClick={this.handleClearAll(null)}>清空</Button></span></p>
+        <div ref='hiring'>{this.renderHiringPositions()}</div>
       </div>
     );
   }
