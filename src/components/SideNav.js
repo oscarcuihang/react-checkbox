@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import HiringPosition from './HiringPosition'
+import './SideNav.css'
 
 class SideNav extends Component {
   render() {
     return (
       <div className="SideNav">
-        <h1>招聘职位</h1>
+        <HiringPosition />
       </div>
     );
   }
